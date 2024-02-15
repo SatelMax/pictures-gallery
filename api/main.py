@@ -6,12 +6,15 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path="./.env.local")
 
 UNSPLASH_URL="https://api.unsplash.com/photos/random"
-UNSPLASH_KEY="Hqxd8K_LF5Bz7jq0UQ4fJBighN0CdlH5BAmdxJgQNn4"
+UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY", "")
+DEBUG=os.environ.get("DEBUG", True)
 
 if not UNSPLASH_KEY:
     raise EnvironmentError("Please create .env.local file and insert there UNSPLASH_KEY")
 
 app = Flask(__name__)
+
+app.config["DEBUG"] = DEBUG
 
 @app.route("/new-image")
 def new_image():
